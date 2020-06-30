@@ -1,10 +1,12 @@
-
 function createElements(node) {
   const slider = node.getElementsByClassName('slider')[0];
   const slideCount = slider.childElementCount;
-  const firstSlide = slider.firstElementChild.cloneNode(true);
-  const lastSlide = slider.lastElementChild.cloneNode(true);
-  node.setAttribute('data-current-slide', 1); //To keep consistency across multiple sliders
+  let slideCurrent = 1;  
+  let slideTarget = 1;
+  let slideHiddenTarget = 1;
+  const autoplayMs = node.hasAttribute('data-autoplay-interval') ? Number(node.getAttribute('data-autoplay-interval')) : 3000;
+  let autoplay = node.classList.contains('autoplay'); //refactor to a data field?
+  let unpaused = autoplay;
 
   //previus slide button
   let prev = document.createElement('a');
@@ -23,101 +25,86 @@ function createElements(node) {
   let dots = [];
   dotbar.classList.add('dotbar');
   for (let i = 0; i < slideCount; i++) {
-    dots[i] = document.createElement('div');
-    dots[i].setAttribute('data-slide-num', i + 1);
-    dots[i].addEventListener('click', jumpToSlide);
-    dotbar.appendChild(dots[i]);
+    dots[i] = {dot: document.createElement('div'), slideNum: i + 1};
+    dots[i].dot.addEventListener('click', jumpToSlideGenerator(dots[i].slideNum));
+    dotbar.appendChild(dots[i].dot);
   }
   node.appendChild(dotbar); //APPENDING TO LIVE DOM
 
   //duplicate first and last slides for smooth transition
+  const firstSlide = slider.firstElementChild.cloneNode(true);
+  const lastSlide = slider.lastElementChild.cloneNode(true);
   slider.appendChild(firstSlide);  //APPENDING TO LIVE DOM
   slider.insertBefore(lastSlide, slider.firstChild);  //APPENDING TO LIVE DOM
 
   // add hidden teleportation at the ends of the slider
-  slider.addEventListener('transitionend', hiddenMovement)
+  slider.addEventListener('transitionend', hiddenMove)
 
   //show the first slide
-  moveSlider(node, 1);
+  transitionMove();
+
 
   //autoplay
-  if (node.classList.contains('autoplay')) {
-    node.setAttribute('data-pause-autoplay', 'go')
+  if (autoplay) {
 
-    node.addEventListener('mouseover', function () {
-      node.setAttribute('data-pause-autoplay', 'pause')
-    });
+    node.addEventListener('mouseover', () => unpaused = false);
+    node.addEventListener('mouseout', () => unpaused = true);
 
-    node.addEventListener('mouseout', function () {
-      node.setAttribute('data-pause-autoplay', 'go')
-    });
+    let autoplayInterval = setInterval(function () {
+      if (unpaused && document.hasFocus()) moveRight();
+    }, autoplayMs);
 
-    let autoplay = setInterval(function () {
-      let pos = Number(node.getAttribute('data-current-slide'));
-      let pause = node.getAttribute('data-pause-autoplay')
-      if (pause == 'go' && document.hasFocus()) moveSlider(node, (pos + 1) % slideCount);
-    }, 3000);
+  }
+
+  //supporting functions
+
+  function findTarget(adjustment, direct = false) {
+    let target = direct ? adjustment : slideCurrent + adjustment; //in case of a direct move (through navigation dots) - just jump to the target, else calculate the target;
+    if (target <= 0) return [0, slideCount]; //if trying to move left of the first slide - return slide 0 as a visible target and last slide as a hidden one;
+    else if (target >= slideCount + 1) return [slideCount + 1, 1] //if trying to move right of the last slide - return slide last + 1 as a visible target and slide 1 as a hidden one;
+    else return [target, target]; //normal case - return the neiboring slide as both targets. No hidden movement needed.
+  }
+
+  function transitionMove() {
+      slider.style.right = (slideTarget * 100) + '%';
+      slideCurrent = slideTarget;
+      dots.map( ({dot, slideNum}) => slideNum == slideHiddenTarget ? dot.classList.add('active') : dot.classList.remove('active') ); // move the dot to the hidden (true) target
+  }
+
+  function hiddenMove() {
+    if (slideCurrent !== slideHiddenTarget)  {
+      slider.classList.add('no-transition');
+      slider.style.right = (slideHiddenTarget * 100) + '%';
+      slideCurrent = slideHiddenTarget;
+      slider.offsetHeight; //flush CSS
+      slider.classList.remove('no-transition');
+    }
+  }
+
+  //navigation functions
+
+  function moveLeft() {
+    [slideTarget, slideHiddenTarget] = findTarget(-1);
+    transitionMove(); 
+  }
+
+  function moveRight() {
+    [slideTarget, slideHiddenTarget] = findTarget(1);
+    transitionMove(); 
+  }
+
+  function jumpToSlideGenerator(tar) {
+    return function() {
+      [slideTarget, slideHiddenTarget] = findTarget(tar, true);
+      transitionMove(); 
+    };
   }
 
 
+
 }
 
-function moveSlider(node, pos) {
-  const slider = node.getElementsByClassName('slider')[0];
-  const slideCount = slider.childElementCount - 2;
-  node.setAttribute('data-current-slide', pos); //To keep consistency across multiple sliders
-  slider.style.right = (pos * 100) + '%';
-  if (pos <= 0) moveDots(node, slideCount);
-  else if (pos >= slideCount + 1) moveDots(node, 1);
-  else moveDots(node, pos);
-}
-
-function moveDots(node, pos) {
-  const dotbar = node.getElementsByClassName('dotbar')[0];
-  Array.from(dotbar.childNodes).map(function (dot, index) {
-    index == pos - 1 ? dot.classList.add('active') : dot.classList.remove('active')
-  });
-}
-
-function hiddenMovement(event) {
-  const slider = event.target;
-  const node = slider.parentNode;
-  const lastSlide = slider.childElementCount;
-  let pos = Number(node.getAttribute('data-current-slide'));
-
-  if (pos == lastSlide - 1) {
-    slider.classList.add('no-transition');
-    moveSlider(node, 1);
-    slider.offsetHeight; //flush CSS
-    slider.classList.remove('no-transition');
-  }
-  else if (pos == 0) {
-    slider.classList.add('no-transition');
-    moveSlider(node, lastSlide - 2);
-    slider.offsetHeight; //flush CSS
-    slider.classList.remove('no-transition');
-  }
-}
-
-
-function moveLeft(event) {
-  const node = event.target.parentNode;
-  let pos = Number(node.getAttribute('data-current-slide'));
-  if (pos > 0) moveSlider(node, pos - 1);
-}
-
-function moveRight(event) {
-  const node = event.target.parentNode;
-  const lastSlide = node.getElementsByClassName('slider')[0].childElementCount;
-  let pos = Number(node.getAttribute('data-current-slide'));
-  if (pos < lastSlide - 1) moveSlider(node, pos + 1);
-}
-
-function jumpToSlide(event) {
-  const node = event.target.parentNode.parentNode;
-  let target = Number(event.target.getAttribute('data-slide-num'));
-  moveSlider(node, target);
-}
+//launch the code for each slider element on page
 
 function launchSliders() {
   const sliderWrappers = Array.from(document.getElementsByClassName('slide-container'));
