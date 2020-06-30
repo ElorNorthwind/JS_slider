@@ -4,22 +4,22 @@
 
 body {
   padding: 0;
-  margin: 0;
+  margin : 0;
 }
 
 .wide {
-  margin: 20px auto;
-  width: 40%;
-  min-width: 400px;
-  height: 200px;
+  margin    : 20px auto;
+  width     : 40%;
+  min-width : 400px;
+  height    : 200px;
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3), 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 .narrow {
-  margin: 20px auto;
-  width: 20%;
-  min-width: 200px;
-  height: 200px;
+  margin    : 20px auto;
+  width     : 20%;
+  min-width : 200px;
+  height    : 200px;
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3), 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
@@ -34,42 +34,43 @@ body {
 }
 
 .slider {
-  display: grid;
+  display          : grid;
   grid-auto-columns: 100%;
-  grid-auto-flow: column;
-  position: relative;
-  height: 100%;
-  transition: right 0.5s ease-in-out;
+  grid-auto-flow   : column;
+  position         : relative;
+  height           : 100%;
+  transition       : right 0.5s ease-in-out;
 }
 
-.slider > * {
-  position: relative;
-  display: grid;
-  width: 100%;
-  hight: 100%;
-  overflow: hidden;
-  box-sizing: border-box; /* in case a div inside has a border */
+.slider>* {
+  position  : relative;
+  display   : grid;
+  width     : 100%;
+  height     : 100%;
+  overflow  : hidden;
+  box-sizing: border-box;
+  /* in case a div inside has a border */
 }
 
-.slider > * > .caption  {
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  background: rgba(0, 0, 0, 0.2);
-  color: white;
-  padding: 3px 10px;
+.slider>*>.caption {
+  position     : absolute;
+  left         : 20px;
+  top          : 20px;
+  background   : rgba(0, 0, 0, 0.2);
+  color        : white;
+  padding      : 3px 10px;
   border-radius: 10px;
-  
+
 }
 
 .slider img {
-  width: 100%;
-  height: 100%;
+  width     : 100%;
+  height    : 100%;
   object-fit: cover;
 }
 
 .no-image {
-  border: 10px solid rgba(255, 255, 255, 0.2);
+  border    : 10px solid rgba(255, 255, 255, 0.2);
   background: rgb(143, 204, 170);
 }
 
@@ -78,93 +79,94 @@ body {
    ==================================== */
 
 .nav {
-  display: inline-box;
-  position: absolute;
-  color: rgba(255, 255, 255, 0.7);
-  background: rgba(0, 0, 0, 0.2);
-  font-size: 30px;
-  width: 30px;
-  height: 60px;
+  display    : inline-box;
+  position   : absolute;
+  color      : rgba(255, 255, 255, 0.7);
+  background : rgba(0, 0, 0, 0.2);
+  font-size  : 30px;
+  width      : 30px;
+  height     : 60px;
   line-height: 60px;
-  text-align: center;
-  top: 50%;
-  transform: translate(0, -50%);
-  cursor: pointer;
-  transition: all 0.2s;
+  text-align : center;
+  top        : 50%;
+  transform  : translate(0, -50%);
+  cursor     : pointer;
+  transition : all 0.2s;
 }
 
 .nav:hover {
-    background: rgba(0, 0, 0, 0.3);
-    color: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.3);
+  color     : rgba(255, 255, 255, 0.9);
 }
 
-.prev{
-  left: 0px;
-  border-radius: 0 10px 10px 0 ;
+.prev {
+  left         : 0px;
+  border-radius: 0 10px 10px 0;
   padding-right: 5px;
 }
 
 .prev:before {
-   content: '<';
+  content: '<';
 
 }
 
-.next{
-  right: 0px;
+.next {
+  right        : 0px;
   border-radius: 10px 0 0 10px;
-  padding-left: 5px;
+  padding-left : 5px;
 }
 
 .next:before {
-   content: '>';
+  content: '>';
 }
 
 
 .dotbar {
-  position: absolute;
-  display: flex;
-  background: rgba(0, 0, 0, 0.2);
+  position     : absolute;
+  display      : flex;
+  background   : rgba(0, 0, 0, 0.2);
   border-radius: 15px;
-  bottom: 20px;
-  left: 50%;
-  transform: translate(-50%);
-  padding: 3px;
+  bottom       : 20px;
+  left         : 50%;
+  transform    : translate(-50%);
+  padding      : 3px;
 }
 
 .dotbar:hover {
   transition: all 0.2s;
   background: rgba(0, 0, 0, 0.3);
 }
-.dotbar > div {
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  height: 15px;
-  width: 15px;
+
+.dotbar>div {
+  border       : 2px solid rgba(255, 255, 255, 0.5);
+  height       : 15px;
+  width        : 15px;
   border-radius: 10px;
-  margin: 2px;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-sizing: border-box;
+  margin       : 2px;
+  cursor       : pointer;
+  transition   : all 0.2s;
+  box-sizing   : border-box;
 }
 
-.dotbar > div:hover {
+.dotbar>div:hover {
   border: 2px solid rgba(255, 255, 255, 0.9);
-  
+
 }
 
-.dotbar > .active  {
-  border: none;
+.dotbar>.active {
+  border    : none;
   background: rgba(255, 255, 255, 0.5);
 }
 
-.dotbar > .active:hover  {
-  border: none;
+.dotbar>.active:hover {
+  border    : none;
   background: rgba(255, 255, 255, 0.9);
 }
 
 .no-transition {
-  -o-transition: none !important;
-  -ms-transition: none !important;
-  -moz-transition: none !important;
+  -o-transition     : none !important;
+  -ms-transition    : none !important;
+  -moz-transition   : none !important;
   -webkit-transition: none !important;
-  transition: none !important;
+  transition        : none !important;
 }
