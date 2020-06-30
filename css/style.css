@@ -1,15 +1,36 @@
+/* ==========================================
+   Example styles. May be changed to whatever 
+   ========================================== */
+
 body {
   padding: 0;
   margin: 0;
 }
 
-.slide-container {
-  position: relative;
+.wide {
   margin: 20px auto;
   width: 40%;
+  min-width: 400px;
   height: 200px;
-  overflow: hidden;
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3), 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.narrow {
+  margin: 20px auto;
+  width: 20%;
+  min-width: 200px;
+  height: 200px;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3), 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* =======================================
+   Slider styles. Change at your own peril 
+   ======================================= */
+
+.slide-container {
+  position: relative;
+  overflow: hidden;
+
 }
 
 .slider {
@@ -38,7 +59,6 @@ body {
   color: white;
   padding: 3px 10px;
   border-radius: 10px;
-
   
 }
 
@@ -53,7 +73,9 @@ body {
   background: rgb(143, 204, 170);
 }
 
-/* Styles used by JS-generated elements */
+/* ====================================
+   Styles used by JS-generated elements 
+   ==================================== */
 
 .nav {
   display: inline-box;
@@ -98,7 +120,6 @@ body {
 }
 
 
-
 .dotbar {
   position: absolute;
   display: flex;
@@ -112,7 +133,7 @@ body {
 
 .dotbar:hover {
   transition: all 0.2s;
-    background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
 }
 .dotbar > div {
   border: 2px solid rgba(255, 255, 255, 0.5);
