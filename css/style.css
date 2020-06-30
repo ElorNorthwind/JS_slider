@@ -1,112 +1,149 @@
 body {
-    padding: 0;
-    margin: 0;
-  }
+  padding: 0;
+  margin: 0;
+}
+
+.slide-container {
+  position: relative;
+  margin: 20px auto;
+  width: 40%;
+  height: 200px;
+  overflow: hidden;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3), 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.slider {
+  display: grid;
+  grid-auto-columns: 100%;
+  grid-auto-flow: column;
+  position: relative;
+  height: 100%;
+  transition: right 0.5s ease-in-out;
+}
+
+.slider > * {
+  position: relative;
+  display: grid;
+  width: 100%;
+  hight: 100%;
+  overflow: hidden;
+  box-sizing: border-box; /* in case a div inside has a border */
+}
+
+.slider > * > .caption  {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  padding: 3px 10px;
+  border-radius: 10px;
+
   
-  .wrap {
-    display: block;
-    position: relative;
-    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3), 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
-    margin: 20px auto;
-    width: 80%;
-    height: 200px;
-    align-items: center;
-    overflow: hidden;
-    }
+}
+
+.slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-image {
+  border: 10px solid rgba(255, 255, 255, 0.2);
+  background: rgb(143, 204, 170);
+}
+
+/* Styles used by JS-generated elements */
+
+.nav {
+  display: inline-box;
+  position: absolute;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 30px;
+  width: 30px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  top: 50%;
+  transform: translate(0, -50%);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav:hover {
+    background: rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.prev{
+  left: 0px;
+  border-radius: 0 10px 10px 0 ;
+  padding-right: 5px;
+}
+
+.prev:before {
+   content: '<';
+
+}
+
+.next{
+  right: 0px;
+  border-radius: 10px 0 0 10px;
+  padding-left: 5px;
+}
+
+.next:before {
+   content: '>';
+}
+
+
+
+.dotbar {
+  position: absolute;
+  display: flex;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%);
+  padding: 3px;
+}
+
+.dotbar:hover {
+  transition: all 0.2s;
+    background: rgba(0, 0, 0, 0.3);
+}
+.dotbar > div {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  height: 15px;
+  width: 15px;
+  border-radius: 10px;
+  margin: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.dotbar > div:hover {
+  border: 2px solid rgba(255, 255, 255, 0.9);
   
-  .nav {
-    display: inline-box;
-    position: absolute;
-    background: rgba(0, 0, 0, 0.1);
-    font-size: 30px;
-    width: 40px;
-    height: 60px;
-    line-height: 60px;
-    color: white;
-    text-align: center;
-    top: calc(50% - 20px);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .nav:hover {
-      background: rgba(0, 0, 0, 0.5);
-  }
-  
-  .prev{
-    left: 0px;
-    border-radius: 0 30px 30px 0 ;
-    padding-right: 5px;
-  }
-  
-  .next{
-    right: 0px;
-    border-radius: 30px 0 0 30px;
-    padding-left: 5px;
-  }
-  
-  .courusel {
-    display: flex;
-  
-    height: 100%;
-    margin: 0;
-    list-style: none;
-    padding-left: 0;
-    transition: transform 0.5s;  
-  }
-  
-  .courusel li {
-    width: 100%;
-  }
-  
-  
-  #item1 {
-    background: url(https://images.unsplash.com/photo-1593206108480-357b4630c29c);
-     background-size: cover;
-    background-position: 50%;  
-  }
-  #item2 {
-    background: url(https://images.unsplash.com/photo-1593217332190-2ee2863f66cc);
-     background-size: cover;
-    background-position: 50%;  
-  }
-  #item3 {
-    background: url(https://images.unsplash.com/photo-1593053272490-e0ed6d6a42c5);
-     background-size: cover;
-    background-position: 50%;  
-  }
-  #item4 {
-    background: url(https://images.unsplash.com/photo-1593278411624-c82d3eb90124);
-     background-size: cover;
-    background-position: 50%;  
-  }
-  
-  .dots {
-    position: absolute;
-    display: flex;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    bottom: 20px;
-    left: 50%;
-    transform: translate(-50%);
-    padding: 3px;
-  }
-  
-  .dot {
-    background: rgba(255, 255, 255, 0.2);
-    display: inline-box;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    margin: 2px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .dot:hover {
-    box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.4);
-  }
-  
-  .active {
-    background: rgba(255, 255, 255, 0.6);
-  }
+}
+
+.dotbar > .active  {
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.dotbar > .active:hover  {
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.no-transition {
+  -o-transition: none !important;
+  -ms-transition: none !important;
+  -moz-transition: none !important;
+  -webkit-transition: none !important;
+  transition: none !important;
+}
