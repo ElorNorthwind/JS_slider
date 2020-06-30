@@ -55,7 +55,7 @@ function createElements(node) {
     let autoplay = setInterval(function() {
       let pos =  Number(node.getAttribute('data-current-slide'));
       let pause = node.getAttribute('data-pause-autoplay')
-      if (pause == 'go') moveSlider(node, pos + 1);
+      if (pause == 'go') moveSlider(node, (pos + 1) % slideCount);
     }, 5000);
  }
     
