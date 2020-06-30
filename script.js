@@ -1,4 +1,3 @@
-const test_slider = document.getElementsByClassName('slide-container')[0];
 
 function createElements(node) {
   const slider = node.getElementsByClassName('slider')[0];
@@ -40,6 +39,27 @@ function createElements(node) {
   
   //show the first slide
   moveSlider(node, 1);
+  
+  //autoplay
+  if (node.classList.contains('autoplay')) {
+    node.setAttribute('data-pause-autoplay', 'go')
+    
+    node.addEventListener('mouseover', function() {
+      node.setAttribute('data-pause-autoplay', 'pause')
+    });
+    
+     node.addEventListener('mouseout', function() {
+      node.setAttribute('data-pause-autoplay', 'go')
+    });
+    
+    let autoplay = setInterval(function() {
+      let pos =  Number(node.getAttribute('data-current-slide'));
+      let pause = node.getAttribute('data-pause-autoplay')
+      if (pause == 'go') moveSlider(node, pos + 1);
+    }, 5000);
+ }
+    
+    
 }
 
 function moveSlider(node, pos) {
@@ -99,5 +119,8 @@ function jumpToSlide(event) {
   moveSlider(node, target);
 }
 
-createElements(test_slider);
-moveSlider(test_slider, 1);
+function launchSliders() {
+  const sliderWrappers = Array.from(document.getElementsByClassName('slide-container'));
+  sliderWrappers.map(node => createElements(node));
+}
+launchSliders()
