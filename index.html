@@ -1,23 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A simple slider test</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<div class='slide-container'>
+<div class='slide-container wide'>
   <div class='slider'>
     <div>
       <img src='https://images.unsplash.com/photo-1591727105417-a0a1055f48c9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='image 1'>
       <span class='caption'> Just a caption. Move along. </span>
     </div>
-    <!-- It doesn't need to be in a container. Any direct child should work -->
-    <img src='https://images.unsplash.com/photo-1591880765426-2d42c8de3e0e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='Image 2'>
+<!-- It doesn't need to be in a container. Any direct child should work -->
+<img src='https://images.unsplash.com/photo-1591880765426-2d42c8de3e0e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='Image 2'>
     <div class='no-image'>
       <span class='caption'> A div with no image is still a div, righ? </span>
+
       </div>
     <div>
       <img src='https://images.unsplash.com/photo-1591610265969-70b99bc29ade?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='Image 3'>
@@ -29,6 +20,10 @@
 </div>
 
 
-    <script src="script.js"></script>
-</body>
-</html>
+
+<div class='slide-container narrow autoplay'>
+  <div class='slider'>
+    <img src='https://images.unsplash.com/photo-1592262044472-9105ff44f543?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt=''>
+    <img src='https://images.unsplash.com/photo-1593412487189-7af5a431925d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt=''>
+  </div>
+</div>
